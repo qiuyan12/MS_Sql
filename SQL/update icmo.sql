@@ -1,0 +1,4 @@
+UPDATE t SET t.fsourceentryid=12
+--SELECT *
+FROM
+ICMO t WHERE t.FBillNo='WORK117812'

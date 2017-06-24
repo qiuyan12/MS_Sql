@@ -1,0 +1,18 @@
+SELECT
+	PO.FInterID,
+	PO.FBillNo,
+	POE.FItemID,
+	II.FNumber ITEM,
+	II.FName ITEM_DES,
+	POE.FQty,
+	POE.FSourceTranType,
+	-- 订单来源 71 采购申请 81 销售订单 0 采购申请(只有几张单,可能也不用了)
+	POE.FSourceInterId,
+	CONVERT (VARCHAR, PO.FDate, 120)
+FROM
+	POOrder PO
+LEFT JOIN POOrderEntry POE ON PO.FInterID = POE.FInterID --LEFT JOIN ICItemMapping IM ON POE.FItemID = IM.FItemID
+LEFT JOIN t_ICItem II ON POE.FItemID = II.FItemID
+WHERE
+	1 = 1 --AND CONVERT (VARCHAR(4), PO.FDate, 120) = 2017
+AND POE.FSourceTranType = 81

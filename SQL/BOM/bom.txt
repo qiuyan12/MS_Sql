@@ -1,0 +1,19 @@
+SELECT
+	TOP 100 bom.FInterID,
+	bom.FBOMNumber,
+	bomheaditem.FNumber,
+	bomheaditem.FName,
+	bomc.FEntryID,
+	childitem.FNumber,
+	childitem.FName,
+	bomc.FQty,
+	Unit.FName Unit
+FROM
+	ICBom bom
+LEFT JOIN t_Item bomheaditem ON bom.FItemID = bomheaditem.FItemID -- left join ICBomGroup bomgroup on bomheaditem.fnumber=bomgroup.fnumber
+LEFT JOIN ICBomChild bomc ON bom.FInterID = bomc.FInterID
+LEFT JOIN t_icItem childitem ON bomc.FItemID = childitem.FItemID
+LEFT JOIN t_Item Unit ON Unit.FItemClassID = 7
+AND childitem.FUnitID = Unit.FItemID
+WHERE
+	bomheaditem.FNumber = 'V.B.B1100.01.VB00036'
